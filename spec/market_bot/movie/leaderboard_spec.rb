@@ -14,12 +14,12 @@ end
 
 def check_results(results)
   it 'should have the top ranking app with valid details' do
-    results.first[:genre].should == 'Comedy'
-    results.first[:stars].should == '3.6'
-    results.first[:title].should == 'Dear White People'
-    results.first[:price_usd].should == '$4.99'
-    results.first[:market_id].should == 'vRpjPMDxpg0'
-    results.first[:market_url].should == 'https://play.google.com/store/movies/details/Dear_White_People?id=vRpjPMDxpg0&hl=en'
+    expect(results.first[:genre]).to eq('Comedy')
+    expect(results.first[:stars]).to eq('3.6')
+    expect(results.first[:title]).to eq('Dear White People')
+    expect(results.first[:price_usd]).to eq('$4.99')
+    expect(results.first[:market_id]).to eq('vRpjPMDxpg0')
+    expect(results.first[:market_url]).to eq('https://play.google.com/store/movies/details/Dear_White_People?id=vRpjPMDxpg0&hl=en')
   end
 end
 
@@ -27,20 +27,20 @@ describe 'Leaderboard' do
   context 'Construction' do
     it 'should copy params' do
       lb = MarketBot::Movie::Leaderboard.new(test_id, test_category)
-      lb.identifier.should == test_id
-      lb.category.should == test_category
+      expect(lb.identifier).to eq(test_id)
+      expect(lb.category).to eq(test_category)
     end
 
     it 'should copy optional params' do
       hydra = Typhoeus::Hydra.new
       lb = MarketBot::Movie::Leaderboard.new(test_id, test_category, :hydra => hydra)
-      lb.hydra.should equal(hydra)
+      expect(lb.hydra).to equal(hydra)
     end
 
     it 'should have an optional category parameter' do
       lb = MarketBot::Movie::Leaderboard.new(test_id)
-      lb.identifier.should == test_id
-      lb.category.should == nil
+      expect(lb.identifier).to eq(test_id)
+      expect(lb.category).to eq(nil)
     end
   end
 
